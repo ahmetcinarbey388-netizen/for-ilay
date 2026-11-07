@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Özür Dilerim Sevgilim ❤️</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter & Dancing Script -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fbcfe8 0%, #f43f5e 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .romantic-font {
+            font-family: 'Dancing Script', cursive;
+        }
+        /* Floating hearts animation */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            animation: floatUp 6s linear infinite;
+            pointer-events: none;
+        }
+        /* Pulse glow */
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(244, 63, 94, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(244, 63, 94, 0.8); }
+        }
+        .glow-box {
+            animation: pulseGlow 3s infinite;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center p-4 text-gray-800 relative">
+
+    <!-- Background Floating Hearts Container -->
+    <div id="hearts-container" class="absolute inset-0 overflow-hidden pointer-events-none z-0"></div>
+
+    <!-- Main Container -->
+    <div class="relative z-10 w-full max-w-md bg-white/90 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-2xl glow-box text-center border border-pink-100 my-auto">
+        
+        <!-- Header Icon / Photo Placeholder -->
+        <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-tr from-rose-400 to-pink-500 flex items-center justify-center shadow-lg text-white text-4xl animate-bounce">
+            <i class="fa-solid fa-heart-pulse"></i>
+        </div>
+
+        <!-- Title -->
+        <h1 class="romantic-font text-4xl md:text-5xl font-bold text-rose-600 mb-2">Çok Özür Dilerim...</h1>
+        <p class="text-sm text-gray-500 mb-6">Kalbini kırdığım için dünyanın en pişman insanıyım.</p>
+
+        <!-- Interactive Carousel / Message Tabs -->
+        <div class="bg-pink-50/70 rounded-2xl p-4 mb-6 text-left border border-pink-200 shadow-inner">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-semibold uppercase tracking-wider text-rose-500">Önemli Not</span>
+                <span id="page-indicator" class="text-xs text-rose-400 font-bold">1 / 3</span>
+            </div>
+            <div id="message-content" class="text-gray-700 text-sm md:text-base leading-relaxed min-h-[90px] transition-all duration-300">
+                "Seni istemeden üzdüğüm, o güzel yüzünü gölgelediğim her an için içim içimi yiyor. Sen benim bu hayattaki en değerli varlığımsın."
+            </div>
+            <div class="flex justify-between mt-4">
+                <button onclick="prevMessage()" class="text-xs bg-white text-rose-600 font-semibold px-3 py-1.5 rounded-full shadow border border-rose-200 active:scale-95 transition">
+                    <i class="fa-solid fa-chevron-left mr-1"></i> Önceki
+                </button>
+                <button onclick="nextMessage()" class="text-xs bg-rose-500 text-white font-semibold px-3 py-1.5 rounded-full shadow hover:bg-rose-600 active:scale-95 transition">
+                    Sonraki <i class="fa-solid fa-chevron-right ml-1"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Reasons why I love you section toggle -->
+        <div class="mb-6">
+            <button onclick="toggleReasons()" class="w-full bg-gradient-to-r from-rose-500 to-pink-500 text-white font-medium py-3 px-4 rounded-2xl shadow-md hover:opacity-95 active:scale-98 transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-gift"></i> Seni Neden Çok Sevdiğimi Hatırla
+            </button>
+            <div id="reasons-box" class="hidden mt-3 bg-rose-50 rounded-2xl p-4 text-xs text-rose-800 text-left space-y-2 border border-rose-200">
+                <p>✨ Gülüşün dünyadaki her şeyden daha güzel.</p>
+                <p>✨ En zor günlerimde bile bana huzur veriyorsun.</p>
+                <p>✨ Kalbinin temizliği ve merhametin beni kendine hayran bırakıyor.</p>
+                <p>✨ Seninle her anım bir masal gibi.</p>
+            </div>
+        </div>
+
+        <!-- Decision Buttons -->
+        <p class="font-semibold text-gray-700 mb-3 text-sm">Peki beni affediyor musun aşkım? 🥺</p>
+        <div class="flex items-center justify-center gap-4 relative h-16">
+            <button onclick="acceptApology()" id="yes-btn" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-6 rounded-2xl shadow-lg active:scale-95 transition text-sm flex items-center gap-2 z-20">
+                <i class="fa-solid fa-check"></i> Evet, Affettim ❤️
+            </button>
+            <button id="no-btn" ontouchstart="moveNoButton()" onmouseover="moveNoButton()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-3 px-5 rounded-2xl shadow transition text-sm absolute right-2 z-10">
+                Hayır 😢
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl animate-fade-in border border-pink-200">
+            <div class="w-20 h-20 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-inner animate-bounce">
+                <i class="fa-solid fa-face-kiss-wink-heart"></i>
+            </div>
+            <h2 class="romantic-font text-3xl font-bold text-gray-800 mb-2">Çok Teşekkür Ederim!</h2>
+            <p class="text-gray-600 text-sm mb-6">Seni çok ama çok seviyorum bir daha asla seni üzmeme izin verme meleğim. 💖</p>
+            <button onclick="resetModal()" class="w-full bg-rose-500 text-white font-bold py-3 rounded-2xl shadow hover:bg-rose-600 transition">
+                Seni Çok Seviyorum 🌹
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer Note -->
+    <footer class="mt-6 text-white/90 text-xs tracking-wide relative z-10">
+        Sonsuza Kadar Seninim ❤️
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Messages array for slider
+        const messages = [
+            "\"Seni istemeden üzdüğüm, o güzel yüzünü gölgelediğim her an için içim içimi yiyor. Sen benim bu hayattaki en değerli varlığımsın.\"",
+            "\"Hatalı olduğumu biliyorum ve senden tüm kalbimle özür diliyorum. Sensiz geçen her saniye benim için çok zor.\"",
+            "\"Bana küstüğün ya da kırıldığın zaman dünyam kararıyor. Lütfen o tatlı gülüşünü benden esirgeme, beni affet.\""
+        ];
+        let currentMessageIndex = 0;
+
+        function nextMessage() {
+            currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+            updateMessageDisplay();
+        }
+
+        function prevMessage() {
+            currentMessageIndex = (currentMessageIndex - 1 + messages.length) % messages.length;
+            updateMessageDisplay();
+        }
+
+        function updateMessageDisplay() {
+            const msgEl = document.getElementById('message-content');
+            const indEl = document.getElementById('page-indicator');
+            msgEl.style.opacity = '0';
+            setTimeout(() => {
+                msgEl.innerText = messages[currentMessageIndex];
+                indEl.innerText = `${currentMessageIndex + 1} / ${messages.length}`;
+                msgEl.style.opacity = '1';
+            }, 150);
+        }
+
+        // Toggle reasons list
+        function toggleReasons() {
+            const box = document.getElementById('reasons-box');
+            box.classList.toggle('hidden');
+        }
+
+        // Floating background hearts generator
+        function createFloatingHearts() {
+            const container = document.getElementById('hearts-container');
+            const heartIcons = ['❤️', '💖', '💗', '💓', '🌸', '✨'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerHTML = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 16 + 12) + 'px';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                container.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 6000);
+            }, 400);
+        }
+
+        // 'No' button escape logic (runs away when hovered or touched)
+        function moveNoButton() {
+            const noBtn = document.getElementById('no-btn');
+            const x = Math.random() * 180 - 90;
+            const y = Math.random() * 100 - 50;
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        // Accept apology success modal
+        function acceptApology() {
+            const modal = document.getElementById('success-modal');
+            modal.classList.remove('hidden');
+            // Trigger extra confetti hearts
+            for(let i=0; i<15; i++) {
+                setTimeout(createBurstHeart, i * 100);
+            }
+        }
+
+        function resetModal() {
+            const modal = document.getElementById('success-modal');
+            modal.classList.add('hidden');
+        }
+
+        function createBurstHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '💖';
+            heart.style.position = 'fixed';
+            heart.style.left = window.innerWidth / 2 + (Math.random() * 200 - 100) + 'px';
+            heart.style.top = window.innerHeight / 2 + (Math.random() * 200 - 100) + 'px';
+            heart.style.fontSize = '24px';
+            heart.style.zIndex = '60';
+            heart.style.transition = 'all 1s ease-out';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.style.transform = `translate(${(Math.random() - 0.5) * 300}px, ${-Math.random() * 300 - 50}px) scale(1.5)`;
+                heart.style.opacity = '0';
+            }, 50);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 1000);
+        }
+
+        // Initialize background effects on window load
+        window.onload = function() {
+            createFloatingHearts();
+        }
+    </script>
+</body>
+</html>
